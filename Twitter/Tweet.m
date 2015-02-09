@@ -20,9 +20,12 @@
         
         formatter.dateFormat = @"EEE MMM d HH:mm:ss Z y";
         
+        self.id = dictionary[@"id_str"];
         self.text = dictionary[@"text"];
         self.createdAt = [formatter dateFromString:createdAtString];
         self.user = [[User alloc] initWithDictionary:dictionary[@"user"]];
+        self.retweetCount = dictionary[@"retweet_count"];
+        self.favoriteCount = dictionary[@"favorite_count"];
     }
     
     return self;

@@ -30,10 +30,11 @@
         self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[TweetsViewController alloc] init]];
     } else {
         self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
+        [[UINavigationBar appearance] setHidden:YES];
     }
 
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlackTranslucent];
-    [[UINavigationBar appearance] setHidden:YES];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:85.0f/255.0f green:172.0f/255.0f blue:238.0f/255.0f alpha:1.0]];
     [self.window makeKeyAndVisible];
     
     return YES;

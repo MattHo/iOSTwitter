@@ -10,21 +10,50 @@
 #import "TwitterClient.h"
 #import "Tweet.h"
 #import "User.h"
+#import "TweetCell.h"
 
-@interface TweetsViewController ()
+@interface TweetsViewController () <UITableViewDataSource, UITableViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray *tweets;
+@property (nonatomic, strong) TweetCell *prototypeCell;
+@property (nonatomic, strong) NSMutableDictionary *params;
 
 @end
 
 @implementation TweetsViewController
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        [self fetchTweets];
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [[TwitterClient sharedInstance] homeTimelineWithParams:nil completion:^(NSArray *tweets, NSError *error) {
-        for (Tweet *tweet in tweets) {
-            NSLog(@"text: %@",tweet.text);
-        }
-    }];
+    [self setTitle:@"Home"];
+
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    [self.tableView registerNib:[UINib nibWithNibName:@"TweetCell" bundle:nil] forCellReuseIdentifier:@"TweetCell"];
+    [self.tableView setSeparatorInset:UIEdgeInsetsZero];
+    [self.tableView setLayoutMargins:UIEdgeInsetsZero];
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+
+    UIView *tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
+    UIActivityIndicatorView *loadingView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [loadingView startAnimating];
+    loadingView.center = tableFooterView.center;
+    [tableFooterView addSubview:loadingView];
+    self.tableView.tableFooterView = tableFooterView;
+    self.tableView.tableFooterView.hidden = YES;
+    
+    self.params = [NSMutableDictionary dictionary];
+    self.tweets = [NSMutableArray array];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -32,18 +61,47 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)onLogout:(id)sender {
-    [User logout];
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.tweets.count;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
+    cell.tweet = self.tweets[indexPath.row];
+    [cell setLayoutMargins:UIEdgeInsetsZero];
+    
+    if (indexPath.row == self.tweets.count - 1 && self.tweets.count < 100) {
+        self.tableView.tableFooterView.hidden = NO;
+        [self.params setValue:cell.tweet.id forKey:@"max_id"];
+        [self.params setValue:nil forKey:@"since_id"];
+        [self fetchTweets];
+    }
+    
+    return cell;
 }
-*/
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    self.prototypeCell.tweet = self.tweets[indexPath.row];
+    
+    CGSize size = [self.prototypeCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    
+    return size.height + 1;
+}
+
+#pragma mark - Private methods
+- (void)fetchTweets {
+    [[TwitterClient sharedInstance] homeTimelineWithParams:self.params completion:^(NSArray *tweets, NSError *error) {
+        [self.tweets addObjectsFromArray:tweets];
+        [self.tableView reloadData];
+        self.tableView.tableFooterView.hidden = YES;
+    }];
+}
+
+- (TweetCell *) prototypeCell {
+    if (!_prototypeCell) {
+        _prototypeCell = [self.tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
+    }
+    return _prototypeCell;
+}
 
 @end

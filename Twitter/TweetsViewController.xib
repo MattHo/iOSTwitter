@@ -6,25 +6,27 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TweetsViewController">
             <connections>
+                <outlet property="tableView" destination="uu9-qw-udO" id="XR4-Sg-USc"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <rect key="frame" x="0.0" y="64" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eR5-ta-zBU">
-                    <rect key="frame" x="136" y="269" width="49" height="30"/>
-                    <state key="normal" title="Logout">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="onLogout:" destination="-1" eventType="touchUpInside" id="gHS-xd-RYd"/>
-                    </connections>
-                </button>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="uu9-qw-udO">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="uu9-qw-udO" secondAttribute="bottom" id="ABX-GL-6Xg"/>
+                <constraint firstItem="uu9-qw-udO" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Ioj-VO-y3f"/>
+                <constraint firstItem="uu9-qw-udO" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Q8D-6m-mxp"/>
+                <constraint firstAttribute="trailing" secondItem="uu9-qw-udO" secondAttribute="trailing" id="cMX-wY-uBw"/>
+            </constraints>
             <point key="canvasLocation" x="359" y="333"/>
         </view>
     </objects>

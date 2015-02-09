@@ -20,7 +20,7 @@
 - (IBAction)onLogin:(id)sender {
     [[TwitterClient sharedInstance] loginWithCompletion:^(User *user, NSError *error) {
         if (user != nil) {
-            [self presentViewController:[[TweetsViewController alloc] init] animated:YES completion:nil];
+            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[[TweetsViewController alloc] init]] animated:YES completion:nil];
         } else {
             
         }
