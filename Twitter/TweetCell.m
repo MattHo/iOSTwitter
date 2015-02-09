@@ -8,6 +8,7 @@
 
 #import "TweetCell.h"
 #import "Tweet.h"
+#import "NSDate+DateTools.h"
 #import "UIImageView+AFNetworking.h"
 
 @interface TweetCell()
@@ -43,7 +44,7 @@
     [self.profileImageView setImageWithURL:[NSURL URLWithString:self.tweet.user.profileImageUrl]];
     self.nameLabel.text = self.tweet.user.name;
     self.screenNameLabel.text = [NSString stringWithFormat:@"@%@", self.tweet.user.screenname];
-    self.createdAtLabel.text = @"14m";
+    self.createdAtLabel.text = [NSDate timeAgoSinceDate:self.tweet.createdAt];
     self.tweetTextLabel.text = self.tweet.text;
     
     if ([self.tweet.retweetCount integerValue] == 0) {

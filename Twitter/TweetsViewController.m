@@ -12,7 +12,9 @@
 #import "User.h"
 #import "TweetCell.h"
 
-@interface TweetsViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface TweetsViewController () <UITableViewDataSource, UITableViewDelegate> {
+    UIRefreshControl *refreshControl;
+}
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *tweets;
@@ -43,7 +45,13 @@
     [self.tableView setSeparatorInset:UIEdgeInsetsZero];
     [self.tableView setLayoutMargins:UIEdgeInsetsZero];
     self.tableView.rowHeight = UITableViewAutomaticDimension;
+    
+    // Refresh
+    refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:refreshControl];
 
+    // Infinite Scroll
     UIView *tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
     UIActivityIndicatorView *loadingView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     [loadingView startAnimating];
@@ -102,6 +110,19 @@
         _prototypeCell = [self.tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
     }
     return _prototypeCell;
+}
+
+- (void)refresh:(id)sender {
+    Tweet *tweet = self.tweets[0];
+    [self.params setValue:nil forKey:@"max_id"];
+    [self.params setValue:tweet.id forKey:@"since_id"];
+
+    [[TwitterClient sharedInstance] homeTimelineWithParams:self.params completion:^(NSArray *tweets, NSError *error) {
+        NSIndexSet *indexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [tweets count])];
+        [self.tweets insertObjects:tweets atIndexes:indexes];
+        [self.tableView reloadData];
+        [(UIRefreshControl *)sender endRefreshing];
+    }];
 }
 
 @end
