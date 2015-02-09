@@ -26,6 +26,10 @@
 		A57E02201A8813560036A889 /* favorite.png in Resources */ = {isa = PBXBuildFile; fileRef = A57E021D1A8813560036A889 /* favorite.png */; };
 		A57E02211A8813560036A889 /* reply.png in Resources */ = {isa = PBXBuildFile; fileRef = A57E021E1A8813560036A889 /* reply.png */; };
 		A57E02221A8813560036A889 /* retweet.png in Resources */ = {isa = PBXBuildFile; fileRef = A57E021F1A8813560036A889 /* retweet.png */; };
+		A57E02241A8881690036A889 /* compose.png in Resources */ = {isa = PBXBuildFile; fileRef = A57E02231A8881690036A889 /* compose.png */; };
+		A57E022C1A8895A90036A889 /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A57E022A1A8895A90036A889 /* ComposeViewController.m */; };
+		A57E022D1A8895A90036A889 /* ComposeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A57E022B1A8895A90036A889 /* ComposeViewController.xib */; };
+		A57E022F1A88A3010036A889 /* cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = A57E022E1A88A3010036A889 /* cancel.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +75,11 @@
 		A57E021D1A8813560036A889 /* favorite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favorite.png; sourceTree = "<group>"; };
 		A57E021E1A8813560036A889 /* reply.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reply.png; sourceTree = "<group>"; };
 		A57E021F1A8813560036A889 /* retweet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = retweet.png; sourceTree = "<group>"; };
+		A57E02231A8881690036A889 /* compose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = compose.png; sourceTree = "<group>"; };
+		A57E02291A8895A90036A889 /* ComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeViewController.h; sourceTree = "<group>"; };
+		A57E022A1A8895A90036A889 /* ComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeViewController.m; sourceTree = "<group>"; };
+		A57E022B1A8895A90036A889 /* ComposeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ComposeViewController.xib; sourceTree = "<group>"; };
+		A57E022E1A88A3010036A889 /* cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancel.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +182,9 @@
 				A57E02121A87F38A0036A889 /* TweetsViewController.h */,
 				A57E02131A87F38A0036A889 /* TweetsViewController.m */,
 				A57E02141A87F38A0036A889 /* TweetsViewController.xib */,
+				A57E02291A8895A90036A889 /* ComposeViewController.h */,
+				A57E022A1A8895A90036A889 /* ComposeViewController.m */,
+				A57E022B1A8895A90036A889 /* ComposeViewController.xib */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -188,6 +200,8 @@
 		A56335B01A874A16009B557F /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				A57E022E1A88A3010036A889 /* cancel.png */,
+				A57E02231A8881690036A889 /* compose.png */,
 				A57E021D1A8813560036A889 /* favorite.png */,
 				A57E021E1A8813560036A889 /* reply.png */,
 				A57E021F1A8813560036A889 /* retweet.png */,
@@ -319,10 +333,13 @@
 				A57E02211A8813560036A889 /* reply.png in Resources */,
 				A57E02221A8813560036A889 /* retweet.png in Resources */,
 				A56335941A87407A009B557F /* LaunchScreen.xib in Resources */,
+				A57E022F1A88A3010036A889 /* cancel.png in Resources */,
 				A57E02161A87F38A0036A889 /* TweetsViewController.xib in Resources */,
 				A56335911A87407A009B557F /* Images.xcassets in Resources */,
 				A57E02201A8813560036A889 /* favorite.png in Resources */,
+				A57E02241A8881690036A889 /* compose.png in Resources */,
 				A56335AE1A8744D3009B557F /* LoginViewController.xib in Resources */,
+				A57E022D1A8895A90036A889 /* ComposeViewController.xib in Resources */,
 				A56335B21A874A54009B557F /* loginBackground.jpg in Resources */,
 				A57E021C1A880D9C0036A889 /* TweetCell.xib in Resources */,
 			);
@@ -378,6 +395,7 @@
 				A56335B61A874D60009B557F /* TwitterClient.m in Sources */,
 				A56335891A87407A009B557F /* AppDelegate.m in Sources */,
 				A56335BD1A875F45009B557F /* User.m in Sources */,
+				A57E022C1A8895A90036A889 /* ComposeViewController.m in Sources */,
 				A56335BA1A875F38009B557F /* Tweet.m in Sources */,
 				A56335861A87407A009B557F /* main.m in Sources */,
 				A56335AD1A8744D3009B557F /* LoginViewController.m in Sources */,

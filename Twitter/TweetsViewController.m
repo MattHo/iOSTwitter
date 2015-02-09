@@ -7,6 +7,7 @@
 //
 
 #import "TweetsViewController.h"
+#import "ComposeViewController.h"
 #import "TwitterClient.h"
 #import "Tweet.h"
 #import "User.h"
@@ -45,6 +46,16 @@
     [self.tableView setSeparatorInset:UIEdgeInsetsZero];
     [self.tableView setLayoutMargins:UIEdgeInsetsZero];
     self.tableView.rowHeight = UITableViewAutomaticDimension;
+    
+    // Compose Tweet
+    UIImage *image = [UIImage imageNamed:@"compose"];
+    CGRect frame = CGRectMake(0, 0, image.size.width, image.size.height);
+    UIButton* button = [[UIButton alloc] initWithFrame:frame];
+    [button setBackgroundImage:image forState:UIControlStateNormal];
+    [button setShowsTouchWhenHighlighted:YES];
+    [button addTarget:self action:@selector(onComposeButton) forControlEvents:UIControlEventTouchDown];
+    UIBarButtonItem* barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    [self.navigationItem setRightBarButtonItem:barButtonItem];
     
     // Refresh
     refreshControl = [[UIRefreshControl alloc] init];
@@ -112,6 +123,14 @@
     return _prototypeCell;
 }
 
+- (void)onComposeButton {
+    ComposeViewController *vc = [[ComposeViewController alloc] init];
+    vc.delegate = self;
+    
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self presentViewController:nvc animated:YES completion:nil];
+ }
+
 - (void)refresh:(id)sender {
     Tweet *tweet = self.tweets[0];
     [self.params setValue:nil forKey:@"max_id"];
@@ -123,6 +142,11 @@
         [self.tableView reloadData];
         [(UIRefreshControl *)sender endRefreshing];
     }];
+}
+
+- (void)composeViewController:(ComposeViewController *)composeViewController didComposeTweet:(Tweet *)tweet {
+    [self.tweets insertObject:tweet atIndex:0];
+    [self.tableView reloadData];
 }
 
 @end
