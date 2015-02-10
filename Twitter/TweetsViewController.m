@@ -49,9 +49,19 @@
     [self.tableView setLayoutMargins:UIEdgeInsetsZero];
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     
-    // Compose Tweet
-    UIImage *image = [UIImage imageNamed:@"compose"];
+    // Logout
+    UIImage *image = [UIImage imageNamed:@"reply"];
     CGRect frame = CGRectMake(0, 0, image.size.width, image.size.height);
+    UIButton* logoutBbutton = [[UIButton alloc] initWithFrame:frame];
+    [logoutBbutton setBackgroundImage:image forState:UIControlStateNormal];
+    [logoutBbutton setShowsTouchWhenHighlighted:YES];
+    [logoutBbutton addTarget:self action:@selector(onLogoutButton) forControlEvents:UIControlEventTouchDown];
+    UIBarButtonItem* logoutBarButton = [[UIBarButtonItem alloc] initWithCustomView:logoutBbutton];
+    [self.navigationItem setLeftBarButtonItem:logoutBarButton];
+
+    // Compose Tweet
+    image = [UIImage imageNamed:@"compose"];
+    frame = CGRectMake(0, 0, image.size.width, image.size.height);
     UIButton* button = [[UIButton alloc] initWithFrame:frame];
     [button setBackgroundImage:image forState:UIControlStateNormal];
     [button setShowsTouchWhenHighlighted:YES];
@@ -142,6 +152,10 @@
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
     [self presentViewController:nvc animated:YES completion:nil];
  }
+
+- (void)onLogoutButton {
+    [User logout];
+}
 
 - (void)refresh:(id)sender {
     Tweet *tweet = self.tweets[0];

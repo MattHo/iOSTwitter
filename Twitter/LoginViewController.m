@@ -31,6 +31,7 @@
     [super viewDidLoad];
     
     self.loginButton.layer.cornerRadius = 4;
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
 }
 
 - (void)didReceiveMemoryWarning {

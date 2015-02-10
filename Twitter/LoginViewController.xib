@@ -57,7 +57,7 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" red="0.63713064865504543" green="0.9674669447933939" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="centerY" secondItem="NEq-1l-2IG" secondAttribute="centerY" id="AE4-mE-IoS"/>
                         <constraint firstAttribute="height" constant="80" id="RlX-26-VWO"/>
