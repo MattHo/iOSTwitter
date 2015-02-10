@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="40" id="KGk-i7-Jjw" customClass="ActionBarCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2os-0C-g1k">
+                        <rect key="frame" x="64" y="8" width="24" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="Y9K-9x-CJd"/>
+                            <constraint firstAttribute="width" constant="24" id="v6b-pU-3D4"/>
+                        </constraints>
+                        <state key="normal" image="reply.png">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="onReply:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="lHf-gV-8iH"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oA7-ee-NqY">
+                        <rect key="frame" x="148" y="8" width="24" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="24" id="FgO-c3-m1M"/>
+                            <constraint firstAttribute="height" constant="24" id="fOm-LB-jcB"/>
+                        </constraints>
+                        <state key="normal" image="retweet.png">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <state key="selected" image="retweet_on.png"/>
+                        <connections>
+                            <action selector="onRetweet:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="UHw-Wv-Izi"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FwM-vs-cpT">
+                        <rect key="frame" x="226" y="8" width="24" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="Njx-AB-UXf"/>
+                            <constraint firstAttribute="width" constant="24" id="r4F-GX-7gT"/>
+                        </constraints>
+                        <state key="normal" image="favorite.png">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <state key="selected" image="favorite_on.png"/>
+                        <connections>
+                            <action selector="onFavorite:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="TEu-ol-qY2"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="FwM-vs-cpT" firstAttribute="leading" secondItem="oA7-ee-NqY" secondAttribute="trailing" constant="54" id="3us-LK-uuE"/>
+                    <constraint firstItem="oA7-ee-NqY" firstAttribute="leading" secondItem="2os-0C-g1k" secondAttribute="trailing" constant="60" id="7fo-tF-scF"/>
+                    <constraint firstAttribute="bottom" secondItem="FwM-vs-cpT" secondAttribute="bottom" constant="8" id="BEZ-Qd-bfi"/>
+                    <constraint firstItem="oA7-ee-NqY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="FX0-Pb-bF9"/>
+                    <constraint firstItem="FwM-vs-cpT" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="Nl4-ph-hAC"/>
+                    <constraint firstItem="2os-0C-g1k" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="WkI-Ua-GG7"/>
+                    <constraint firstAttribute="bottom" secondItem="2os-0C-g1k" secondAttribute="bottom" constant="8" id="gy9-R2-xJM"/>
+                    <constraint firstAttribute="bottom" secondItem="oA7-ee-NqY" secondAttribute="bottom" constant="8" id="vTG-9S-ndN"/>
+                    <constraint firstAttribute="centerX" secondItem="oA7-ee-NqY" secondAttribute="centerX" id="ymn-WM-dSO"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="favoriteButton" destination="FwM-vs-cpT" id="wyd-VN-i1M"/>
+                <outlet property="retweetButton" destination="oA7-ee-NqY" id="MU3-yh-Mb5"/>
+            </connections>
+            <point key="canvasLocation" x="337" y="265"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="favorite.png" width="16" height="16"/>
+        <image name="favorite_on.png" width="16" height="16"/>
+        <image name="reply.png" width="16" height="16"/>
+        <image name="retweet.png" width="19" height="16"/>
+        <image name="retweet_on.png" width="19" height="16"/>
+    </resources>
+</document>

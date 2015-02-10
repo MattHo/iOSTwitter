@@ -7,13 +7,14 @@
 //
 
 #import "TweetsViewController.h"
+#import "TweetViewController.h"
 #import "ComposeViewController.h"
 #import "TwitterClient.h"
 #import "Tweet.h"
 #import "User.h"
 #import "TweetCell.h"
 
-@interface TweetsViewController () <UITableViewDataSource, UITableViewDelegate> {
+@interface TweetsViewController () <UITableViewDataSource, UITableViewDelegate, ComposeViewControllerDelegate> {
     UIRefreshControl *refreshControl;
 }
 
@@ -105,6 +106,15 @@
     CGSize size = [self.prototypeCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     
     return size.height + 1;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    TweetViewController *vc = [[TweetViewController alloc] init];
+    
+    vc.tweet = self.tweets[indexPath.row];
+    
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - Private methods

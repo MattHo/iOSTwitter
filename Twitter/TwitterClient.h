@@ -18,6 +18,10 @@
 - (void)openURL:(NSURL *)url;
 
 - (void)homeTimelineWithParams:(NSDictionary *)params completion:(void (^)(NSArray *tweets, NSError *error))completion;
-- (void)composeTweet:(NSDictionary *)params completion:(void (^)(Tweet *tweet, NSError *error))completion;
+- (void)compose:(NSDictionary *)params completion:(void (^)(Tweet *tweet, NSError *error))completion;
+- (void)destroy:(NSString *)tweetId params:(NSDictionary *)params completion:(void (^)(Tweet *tweet, NSError *error))completion;
+- (void)retweet:(NSString *)tweetId params:(NSDictionary *)params completion:(void (^)(Tweet *tweet, NSError *error))completion;
+- (void)favorite:(NSDictionary *)params completion:(void (^)(Tweet *tweet, NSError *error))completion;
+- (void)destroyFavorite:(NSDictionary *)params completion:(void (^)(Tweet *tweet, NSError *error))completion;
 
 @end

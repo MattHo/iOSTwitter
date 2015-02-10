@@ -28,11 +28,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    NSString *count = @"140";
     User *user = [User currentUser];
     [self.profileImageView setImageWithURL:[NSURL URLWithString:user.profileImageUrl]];
     self.nameLabel.text = user.name;
     self.screenNameLabel.text = [NSString stringWithFormat:@"@%@", user.screenname];
 
+    if (self.replyTweet != nil) {
+        self.inputText.text = [NSString stringWithFormat:@"@%@", self.replyTweet.user.screenname];
+        count = [NSString stringWithFormat:@"%lu", 140 - self.inputText.text.length];
+    }
+    
     self.profileImageView.layer.cornerRadius = 3;
     self.profileImageView.clipsToBounds = YES;
 
@@ -62,7 +68,7 @@
     self.composeBarButton = [[UIBarButtonItem alloc] initWithCustomView:self.composeButton];
     self.composeBarButton.enabled = NO;
     
-    self.countButton = [[UIBarButtonItem alloc] initWithTitle:@"140" style:UIBarButtonItemStylePlain target:self action:nil];
+    self.countButton = [[UIBarButtonItem alloc] initWithTitle:count style:UIBarButtonItemStylePlain target:self action:nil];
     self.countButton.enabled = NO;
 
     [buttonList addObject:self.composeBarButton];
@@ -76,14 +82,26 @@
 
 - (IBAction)editingChanged:(id)sender {
     if (self.inputText.text.length == 0) {
+        [UIView setAnimationsEnabled:NO];
+        [self.countButton setTitle:[NSString stringWithFormat:@"%lu", (long) 140]];
+        [UIView setAnimationsEnabled:YES];
+
         self.countButton.enabled = NO;
         self.composeBarButton.enabled = NO;
         self.composeButton.layer.backgroundColor = [UIColor colorWithRed:42.0f/255.0f green:139.0f/255.0f blue:232.0f/255.0f alpha:0.5].CGColor;
     } else {
-        self.countButton.enabled = YES;
-        self.countButton.title = [NSString stringWithFormat:@"%lu", 140 - self.inputText.text.length];
-        self.composeBarButton.enabled = YES;
-        self.composeButton.layer.backgroundColor = [UIColor colorWithRed:42.0f/255.0f green:139.0f/255.0f blue:232.0f/255.0f alpha:1.0].CGColor;
+        if (self.countButton.enabled == NO) {
+            self.countButton.enabled = YES;
+        }
+        
+        [UIView setAnimationsEnabled:NO];
+        [self.countButton setTitle:[NSString stringWithFormat:@"%lu", 140 - self.inputText.text.length]];
+        [UIView setAnimationsEnabled:YES];
+
+        if (self.composeBarButton.enabled == NO) {
+            self.composeBarButton.enabled = YES;
+            self.composeButton.layer.backgroundColor = [UIColor colorWithRed:42.0f/255.0f green:139.0f/255.0f blue:232.0f/255.0f alpha:1.0].CGColor;
+        }
     }
 }
 
@@ -94,11 +112,20 @@
 
 - (void)onComposeButton {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    [params setObject:self.inputText.text forKey:@"status"];
+    [params setValue:self.inputText.text forKey:@"status"];
+    
+    if (self.replyTweet != nil) {
+        [params setValue:self.replyTweet.id forKey:@"in_reply_to_status_id"];
+    }
 
-    [[TwitterClient sharedInstance] composeTweet:params completion:^(Tweet *tweet, NSError *error) {
+    [[TwitterClient sharedInstance] compose:params completion:^(Tweet *tweet, NSError *error) {
         if (tweet != nil) {
-            [self.delegate composeViewController:self didComposeTweet:tweet];
+            if (self.replyTweet != nil) {
+                self.replyTweet.replyTweet = tweet;
+                [self.delegate composeViewController:self didComposeTweet:self.replyTweet];
+            } else {
+                [self.delegate composeViewController:self didComposeTweet:tweet];
+            }
         }
 
         [self dismissViewControllerAnimated:YES completion:nil];

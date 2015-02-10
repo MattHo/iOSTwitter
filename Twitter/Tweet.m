@@ -26,6 +26,18 @@
         self.user = [[User alloc] initWithDictionary:dictionary[@"user"]];
         self.retweetCount = dictionary[@"retweet_count"];
         self.favoriteCount = dictionary[@"favorite_count"];
+        self.retweeted = dictionary[@"retweeted"];
+        self.favorited = dictionary[@"favorited"];
+        
+        if ([self.favorited isEqual:@1] && [self.favoriteCount isEqual:@0]) {
+            self.favoriteCount = @1;
+        }
+        
+        if (dictionary[@"retweeted_status"] != nil) {
+            Tweet *retweet = [[Tweet alloc] initWithDictionary:dictionary[@"retweeted_status"]];
+            retweet.retweet = self;
+            return retweet;
+        }
     }
     
     return self;

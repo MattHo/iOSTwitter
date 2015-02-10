@@ -13,6 +13,7 @@ extern NSString * const UserDidLogoutNotification;
 
 @interface User : NSObject
 
+@property (nonatomic, strong) NSString *id;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *screenname;
 @property (nonatomic, strong) NSString *profileImageUrl;
