@@ -15,7 +15,7 @@ Time spent: 16 hours
 - [x] User can pull to refresh
 - [x] User can compose a new tweet by tapping on a compose button.
 - [x] User can tap on a tweet to view it, with controls to retweet, favorite, and reply.
-- [ ] User can retweet, favorite, and reply to the tweet directly from the timeline feed.
+- [x] User can retweet, favorite, and reply to the tweet directly from the timeline feed.
 
 #### Optional
 
@@ -28,4 +28,4 @@ Time spent: 16 hours
 
 ### Walkthrough
 
-![Video Walkthrough](...)
+![Video Walkthrough](twitter.gif)
