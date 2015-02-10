@@ -88,6 +88,7 @@
         }
     } else {
         TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
+        cell.disableAction = @1;
         cell.tweet = self.tweet.replyTweet;
         return cell;
     }

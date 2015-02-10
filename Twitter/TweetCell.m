@@ -20,10 +20,25 @@
 @property (weak, nonatomic) IBOutlet UILabel *tweetTextLabel;
 @property (weak, nonatomic) IBOutlet UILabel *retweetCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *favoriteCountLabel;
+@property (weak, nonatomic) IBOutlet UIButton *replyButton;
+@property (weak, nonatomic) IBOutlet UIButton *retweetButton;
+@property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
 
 @end
 
 @implementation TweetCell
+
+- (IBAction)onReply:(id)sender {
+    [self.delegate reply:self];
+}
+
+- (IBAction)onRetweet:(id)sender {
+    [self.delegate retweet:self];
+}
+
+- (IBAction)onFavorite:(id)sender {
+    [self.delegate favorite:self];
+}
 
 - (void)awakeFromNib {
     self.nameLabel.preferredMaxLayoutWidth = self.nameLabel.frame.size.width;
@@ -57,6 +72,29 @@
         self.favoriteCountLabel.text = @"";
     } else {
         self.favoriteCountLabel.text = [self.tweet.favoriteCount stringValue];
+    }
+
+    if ([self.tweet.retweeted isEqual:@1]) {
+        self.retweetButton.selected = YES;
+    } else {
+        self.retweetButton.selected = NO;
+        if ([self.tweet.user.id isEqual:[User currentUser].id]) {
+            self.retweetButton.enabled = NO;
+        }
+    }
+    
+    if ([self.tweet.favorited isEqual:@1]) {
+        self.favoriteButton.selected = YES;
+    } else {
+        self.favoriteButton.selected = NO;
+    }
+    
+    if ([self.disableAction isEqual:@1]) {
+        [self.replyButton removeFromSuperview];
+        [self.retweetButton removeFromSuperview];
+        [self.retweetCountLabel removeFromSuperview];
+        [self.favoriteButton removeFromSuperview];
+        [self.favoriteCountLabel removeFromSuperview];
     }
 }
 

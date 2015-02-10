@@ -14,13 +14,14 @@
 #import "User.h"
 #import "TweetCell.h"
 
-@interface TweetsViewController () <UITableViewDataSource, UITableViewDelegate, ComposeViewControllerDelegate> {
+@interface TweetsViewController () <UITableViewDataSource, UITableViewDelegate, ComposeViewControllerDelegate, TweetCellDelegate, UIActionSheetDelegate> {
     UIRefreshControl *refreshControl;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *tweets;
 @property (nonatomic, strong) TweetCell *prototypeCell;
+@property (nonatomic, strong) TweetCell *untweetCell;
 @property (nonatomic, strong) NSMutableDictionary *params;
 
 @end
@@ -88,6 +89,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
     cell.tweet = self.tweets[indexPath.row];
+    cell.delegate = self;
     [cell setLayoutMargins:UIEdgeInsetsZero];
     
     if (indexPath.row == self.tweets.count - 1 && self.tweets.count < 100) {
@@ -157,6 +159,70 @@
 - (void)composeViewController:(ComposeViewController *)composeViewController didComposeTweet:(Tweet *)tweet {
     [self.tweets insertObject:tweet atIndex:0];
     [self.tableView reloadData];
+}
+
+- (void)reply:(TweetCell *)cell {
+    ComposeViewController *vc = [[ComposeViewController alloc] init];
+    vc.delegate = self;
+    vc.replyTweet = cell.tweet;
+    
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self presentViewController:nvc animated:YES completion:nil];
+}
+
+- (void)retweet:(TweetCell *)cell {
+    if ([cell.tweet.retweeted isEqual:@0]) {
+        [[TwitterClient sharedInstance] retweet:cell.tweet.id params:nil completion:^(Tweet *tweet, NSError *error) {
+            if (tweet != nil) {
+                NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+                [self.tweets replaceObjectAtIndex:indexPath.row withObject:tweet];
+                [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            }
+        }];
+    } else {
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Undo retweet" otherButtonTitles:nil];
+        
+        self.untweetCell = cell;
+        [actionSheet showInView:self.view];
+    }
+}
+
+- (void)favorite:(TweetCell *)cell {
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setValue:cell.tweet.id forKey:@"id"];
+    
+    if ([cell.tweet.favorited isEqual:@0]) {
+        [[TwitterClient sharedInstance] favorite:params completion:^(Tweet *tweet, NSError *error) {
+            if (tweet != nil) {
+                [self.tweets replaceObjectAtIndex:indexPath.row withObject:tweet];
+                [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            }
+        }];
+    } else {
+        [[TwitterClient sharedInstance] destroyFavorite:params completion:^(Tweet *tweet, NSError *error) {
+            if (tweet != nil) {
+                [self.tweets replaceObjectAtIndex:indexPath.row withObject:tweet];
+                [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            }
+        }];
+    }
+}
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    Tweet *untweet = self.untweetCell.tweet;
+    
+    if (untweet.retweet != nil && buttonIndex == (long) 0) {
+        [[TwitterClient sharedInstance] destroy:untweet.retweet.id params:nil completion:^(Tweet *tweet, NSError *error) {
+            if (tweet != nil) {
+                tweet.retweeted = @0;
+                tweet.retweetCount = [[NSNumber alloc] initWithInteger:([tweet.retweetCount longValue] - 1)];
+                NSIndexPath *indexPath = [self.tableView indexPathForCell:self.untweetCell];
+                [self.tweets replaceObjectAtIndex:indexPath.row withObject:tweet];
+                [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            }
+        }];
+    }
 }
 
 @end
