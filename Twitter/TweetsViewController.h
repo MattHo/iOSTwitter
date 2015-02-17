@@ -19,5 +19,6 @@
 @interface TweetsViewController : UIViewController
 
 @property (nonatomic, weak) id<TweetsViewControllerDelegate> delegate;
+@property (nonatomic, strong) NSString *source;
 
 @end

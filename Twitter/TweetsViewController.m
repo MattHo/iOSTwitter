@@ -28,19 +28,14 @@
 
 @implementation TweetsViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        [self fetchTweets];
-    }
-    return self;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [self setTitle:@"Home"];
+    if ([self.source isEqual:@"mentionsTimeline"]) {
+        [self setTitle:@"Notifications"];
+    } else {
+        [self setTitle:@"Home"];
+    }
 
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -88,6 +83,7 @@
     
     self.params = [NSMutableDictionary dictionary];
     self.tweets = [NSMutableArray array];
+    [self fetchTweets];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -143,11 +139,19 @@
 
 #pragma mark - Private methods
 - (void)fetchTweets {
-    [[TwitterClient sharedInstance] homeTimelineWithParams:self.params completion:^(NSArray *tweets, NSError *error) {
-        [self.tweets addObjectsFromArray:tweets];
-        [self.tableView reloadData];
-        self.tableView.tableFooterView.hidden = YES;
-    }];
+    if ([self.source  isEqual: @"mentionsTimeline"]) {
+        [[TwitterClient sharedInstance] mentionsTimelineWithParams:self.params completion:^(NSArray *tweets, NSError *error) {
+            [self.tweets addObjectsFromArray:tweets];
+            [self.tableView reloadData];
+            self.tableView.tableFooterView.hidden = YES;
+        }];
+    } else {
+        [[TwitterClient sharedInstance] homeTimelineWithParams:self.params completion:^(NSArray *tweets, NSError *error) {
+            [self.tweets addObjectsFromArray:tweets];
+            [self.tableView reloadData];
+            self.tableView.tableFooterView.hidden = YES;
+        }];
+    }
 }
 
 - (TweetCell *) prototypeCell {
@@ -174,12 +178,21 @@
     [self.params setValue:nil forKey:@"max_id"];
     [self.params setValue:tweet.id forKey:@"since_id"];
 
-    [[TwitterClient sharedInstance] homeTimelineWithParams:self.params completion:^(NSArray *tweets, NSError *error) {
-        NSIndexSet *indexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [tweets count])];
-        [self.tweets insertObjects:tweets atIndexes:indexes];
-        [self.tableView reloadData];
-        [(UIRefreshControl *)sender endRefreshing];
-    }];
+    if ([self.source  isEqual: @"mentionsTimeline"]) {
+        [[TwitterClient sharedInstance] mentionsTimelineWithParams:self.params completion:^(NSArray *tweets, NSError *error) {
+            NSIndexSet *indexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [tweets count])];
+            [self.tweets insertObjects:tweets atIndexes:indexes];
+            [self.tableView reloadData];
+            [(UIRefreshControl *)sender endRefreshing];
+        }];
+    } else {
+        [[TwitterClient sharedInstance] homeTimelineWithParams:self.params completion:^(NSArray *tweets, NSError *error) {
+            NSIndexSet *indexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [tweets count])];
+            [self.tweets insertObjects:tweets atIndexes:indexes];
+            [self.tableView reloadData];
+            [(UIRefreshControl *)sender endRefreshing];
+        }];
+    }
 }
 
 - (void)composeViewController:(ComposeViewController *)composeViewController didComposeTweet:(Tweet *)tweet {

@@ -81,19 +81,28 @@
     
     if ([viewName isEqual:@"logout"]) {
         [User logout];
+    } else if ([viewName isEqual:@"profile"]) {
+        [self.contentViewController.view removeFromSuperview];
+        
+        ProfileViewController *profileViewController = [[ProfileViewController alloc] init];
+        profileViewController.user = [User currentUser];
+        self.currentView = viewName;
+        self.contentViewController = [[UINavigationController alloc] initWithRootViewController:profileViewController];
+        self.contentViewController.view.frame = self.contentView.frame;
+        [self.contentView addSubview:self.contentViewController.view];
     } else if (![viewName isEqual:self.currentView]) {
         [self.contentViewController.view removeFromSuperview];
         
-        if ([viewName isEqual:@"profile"]) {
-            ProfileViewController *profileViewController = [[ProfileViewController alloc] init];
-            profileViewController.user = [User currentUser];
-            self.contentViewController = [[UINavigationController alloc] initWithRootViewController:profileViewController];
-        } else if ([viewName isEqual:@"timelines"]) {
+        if ([viewName isEqual:@"timelines"]) {
             TweetsViewController *tweetsViewController = [[TweetsViewController alloc] init];
             tweetsViewController.delegate = self;
+            tweetsViewController.source = @"homeTimeline";
             self.contentViewController = [[UINavigationController alloc] initWithRootViewController:tweetsViewController];
         } else if ([viewName isEqual:@"notifications"]) {
-            self.contentViewController = [[UINavigationController alloc] initWithRootViewController:[[AccountViewController alloc] init]];
+            TweetsViewController *tweetsViewController = [[TweetsViewController alloc] init];
+            tweetsViewController.delegate = self;
+            tweetsViewController.source = @"mentionsTimeline";
+            self.contentViewController = [[UINavigationController alloc] initWithRootViewController:tweetsViewController];
         }
 
         self.currentView = viewName;
