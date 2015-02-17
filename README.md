@@ -25,4 +25,4 @@ Time spent: 16 hours
 
 ### Walkthrough
 
-![Video Walkthrough](twitter.gif)
+![Video Walkthrough](twitter2.gif)
