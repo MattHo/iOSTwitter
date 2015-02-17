@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "User.h"
 
 @protocol TweetsViewControllerDelegate <NSObject>
 
 - (void)onMenuButton;
+- (void)tapOnProfileImage:(User *)user;
 
 @end
 

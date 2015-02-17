@@ -132,6 +132,10 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+- (void)tapOnProfileImage:(User *)user {
+    [self.delegate tapOnProfileImage:user];
+}
+
 -(UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;

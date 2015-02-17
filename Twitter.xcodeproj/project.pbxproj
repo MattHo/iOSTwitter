@@ -24,6 +24,12 @@
 		A56081DA1A90C11E000A29A1 /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A56081D81A90C11E000A29A1 /* ProfileViewController.xib */; };
 		A56081DE1A91D691000A29A1 /* ProfileDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A56081DC1A91D691000A29A1 /* ProfileDetailCell.m */; };
 		A56081DF1A91D691000A29A1 /* ProfileDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A56081DD1A91D691000A29A1 /* ProfileDetailCell.xib */; };
+		A56081E61A92E716000A29A1 /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A56081E41A92E716000A29A1 /* AccountViewController.m */; };
+		A56081E71A92E716000A29A1 /* AccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A56081E51A92E716000A29A1 /* AccountViewController.xib */; };
+		A56081EB1A92F04B000A29A1 /* AccountCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A56081E91A92F04B000A29A1 /* AccountCell.m */; };
+		A56081EC1A92F04B000A29A1 /* AccountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A56081EA1A92F04B000A29A1 /* AccountCell.xib */; };
+		A56081F01A92F8FF000A29A1 /* AddAccountCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A56081EE1A92F8FF000A29A1 /* AddAccountCell.m */; };
+		A56081F11A92F8FF000A29A1 /* AddAccountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A56081EF1A92F8FF000A29A1 /* AddAccountCell.xib */; };
 		A56335861A87407A009B557F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A56335851A87407A009B557F /* main.m */; };
 		A56335891A87407A009B557F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A56335881A87407A009B557F /* AppDelegate.m */; };
 		A56335911A87407A009B557F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A56335901A87407A009B557F /* Images.xcassets */; };
@@ -94,6 +100,15 @@
 		A56081DB1A91D691000A29A1 /* ProfileDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileDetailCell.h; sourceTree = "<group>"; };
 		A56081DC1A91D691000A29A1 /* ProfileDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileDetailCell.m; sourceTree = "<group>"; };
 		A56081DD1A91D691000A29A1 /* ProfileDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileDetailCell.xib; sourceTree = "<group>"; };
+		A56081E31A92E716000A29A1 /* AccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountViewController.h; sourceTree = "<group>"; };
+		A56081E41A92E716000A29A1 /* AccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountViewController.m; sourceTree = "<group>"; };
+		A56081E51A92E716000A29A1 /* AccountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountViewController.xib; sourceTree = "<group>"; };
+		A56081E81A92F04B000A29A1 /* AccountCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountCell.h; sourceTree = "<group>"; };
+		A56081E91A92F04B000A29A1 /* AccountCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountCell.m; sourceTree = "<group>"; };
+		A56081EA1A92F04B000A29A1 /* AccountCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountCell.xib; sourceTree = "<group>"; };
+		A56081ED1A92F8FF000A29A1 /* AddAccountCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddAccountCell.h; sourceTree = "<group>"; };
+		A56081EE1A92F8FF000A29A1 /* AddAccountCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAccountCell.m; sourceTree = "<group>"; };
+		A56081EF1A92F8FF000A29A1 /* AddAccountCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddAccountCell.xib; sourceTree = "<group>"; };
 		A56335801A87407A009B557F /* Twitter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Twitter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A56335841A87407A009B557F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A56335851A87407A009B557F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -259,6 +274,9 @@
 				A56081D61A90C11E000A29A1 /* ProfileViewController.h */,
 				A56081D71A90C11E000A29A1 /* ProfileViewController.m */,
 				A56081D81A90C11E000A29A1 /* ProfileViewController.xib */,
+				A56081E31A92E716000A29A1 /* AccountViewController.h */,
+				A56081E41A92E716000A29A1 /* AccountViewController.m */,
+				A56081E51A92E716000A29A1 /* AccountViewController.xib */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -326,6 +344,12 @@
 				A56081DB1A91D691000A29A1 /* ProfileDetailCell.h */,
 				A56081DC1A91D691000A29A1 /* ProfileDetailCell.m */,
 				A56081DD1A91D691000A29A1 /* ProfileDetailCell.xib */,
+				A56081E81A92F04B000A29A1 /* AccountCell.h */,
+				A56081E91A92F04B000A29A1 /* AccountCell.m */,
+				A56081EA1A92F04B000A29A1 /* AccountCell.xib */,
+				A56081ED1A92F8FF000A29A1 /* AddAccountCell.h */,
+				A56081EE1A92F8FF000A29A1 /* AddAccountCell.m */,
+				A56081EF1A92F8FF000A29A1 /* AddAccountCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -425,6 +449,7 @@
 				A56081DF1A91D691000A29A1 /* ProfileDetailCell.xib in Resources */,
 				A56081CA1A90978B000A29A1 /* MenuItemCell.xib in Resources */,
 				A57E02221A8813560036A889 /* retweet.png in Resources */,
+				A56081EC1A92F04B000A29A1 /* AccountCell.xib in Resources */,
 				A57E023C1A88C47B0036A889 /* TweetDetailCell.xib in Resources */,
 				A56081C51A908CD3000A29A1 /* ProfileCell.xib in Resources */,
 				A56335941A87407A009B557F /* LaunchScreen.xib in Resources */,
@@ -438,6 +463,7 @@
 				A57E02241A8881690036A889 /* compose.png in Resources */,
 				A5C67B641A8988C700E6AAAC /* favorite_on.png in Resources */,
 				A57E02371A88BE190036A889 /* TweetViewController.xib in Resources */,
+				A56081E71A92E716000A29A1 /* AccountViewController.xib in Resources */,
 				A56081CE1A90989A000A29A1 /* bell.png in Resources */,
 				A57E02411A88C62A0036A889 /* ActionBarCell.xib in Resources */,
 				A56081BB1A908531000A29A1 /* menu.png in Resources */,
@@ -445,6 +471,7 @@
 				A5C67B651A8988C700E6AAAC /* retweet_on.png in Resources */,
 				A57E022D1A8895A90036A889 /* ComposeViewController.xib in Resources */,
 				A56081CF1A90989A000A29A1 /* home.png in Resources */,
+				A56081F11A92F8FF000A29A1 /* AddAccountCell.xib in Resources */,
 				A56335B21A874A54009B557F /* loginBackground.jpg in Resources */,
 				A597F4181A894B9700AC25BA /* StatisticsCell.xib in Resources */,
 				A57E021C1A880D9C0036A889 /* TweetCell.xib in Resources */,
@@ -503,6 +530,7 @@
 				A56335BD1A875F45009B557F /* User.m in Sources */,
 				A57E022C1A8895A90036A889 /* ComposeViewController.m in Sources */,
 				A56081C41A908CD3000A29A1 /* ProfileCell.m in Sources */,
+				A56081EB1A92F04B000A29A1 /* AccountCell.m in Sources */,
 				A56081DE1A91D691000A29A1 /* ProfileDetailCell.m in Sources */,
 				A57E023B1A88C47B0036A889 /* TweetDetailCell.m in Sources */,
 				A57E02401A88C62A0036A889 /* ActionBarCell.m in Sources */,
@@ -512,6 +540,8 @@
 				A56081D91A90C11E000A29A1 /* ProfileViewController.m in Sources */,
 				A56335861A87407A009B557F /* main.m in Sources */,
 				A56335AD1A8744D3009B557F /* LoginViewController.m in Sources */,
+				A56081F01A92F8FF000A29A1 /* AddAccountCell.m in Sources */,
+				A56081E61A92E716000A29A1 /* AccountViewController.m in Sources */,
 				A597F4171A894B9700AC25BA /* StatisticsCell.m in Sources */,
 				A56081BF1A908AC8000A29A1 /* MenuViewController.m in Sources */,
 				A56081C91A90978B000A29A1 /* MenuItemCell.m in Sources */,

@@ -10,6 +10,7 @@
 #import "MenuViewController.h"
 #import "ProfileViewController.h"
 #import "TweetsViewController.h"
+#import "AccountViewController.h"
 #import "User.h"
 
 @interface MainViewController () <MenuViewDelegate, TweetsViewControllerDelegate>
@@ -92,7 +93,7 @@
             tweetsViewController.delegate = self;
             self.contentViewController = [[UINavigationController alloc] initWithRootViewController:tweetsViewController];
         } else if ([viewName isEqual:@"notifications"]) {
-            self.contentViewController = [[UINavigationController alloc] initWithRootViewController:[[TweetsViewController alloc] init]];
+            self.contentViewController = [[UINavigationController alloc] initWithRootViewController:[[AccountViewController alloc] init]];
         }
 
         self.currentView = viewName;
@@ -110,6 +111,12 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)tapOnProfileImage:(User *)user {
+    ProfileViewController *profileViewController = [[ProfileViewController alloc] init];
+    profileViewController.user = user;
+    self.contentViewController = [[UINavigationController alloc] initWithRootViewController:profileViewController];
+}
 
 - (void)onMenuButton {
     if ([self.isMenuOpen isEqualToNumber:@1]) {

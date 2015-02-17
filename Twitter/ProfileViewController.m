@@ -7,11 +7,12 @@
 //
 
 #import "ProfileViewController.h"
+#import "GPUImage.h"
+#import "UIImageView+AFNetworking.h"
+#import "TwitterClient.h"
 #import "ProfileDetailCell.h"
 #import "TweetCell.h"
-#import "TwitterClient.h"
-#import "UIImageView+AFNetworking.h"
-#import "GPUImage.h"
+#import "AccountViewController.h"
 
 @interface ProfileViewController () <UITableViewDataSource, UITableViewDelegate, ProfileDetailCellDelegate>
 
@@ -38,6 +39,11 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [self.tableView reloadData];
+    [self.backgroundImageView setImageWithURL:[NSURL URLWithString:self.user.backgroundImageUrl]];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -50,8 +56,6 @@
     self.mediaTweets = [NSMutableArray array];
     self.mentionsTweets = [NSMutableArray array];
     self.currentTweets = self.userTweets;
-
-    [self.backgroundImageView setImageWithURL:[NSURL URLWithString:self.user.backgroundImageUrl]];
 
     [self.tableView registerNib:[UINib nibWithNibName:@"ProfileDetailCell" bundle:nil] forCellReuseIdentifier:@"ProfileDetailCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"TweetCell" bundle:nil] forCellReuseIdentifier:@"TweetCell"];
@@ -109,6 +113,27 @@
     
     if (indexPath.section > 0) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    CGFloat offset = scrollView.contentOffset.y;
+
+    if (offset <= -80.0) {
+        AccountViewController *vc = [[AccountViewController alloc] init];
+        vc.profileViewController = self;
+        
+        CATransition* transition = [CATransition animation];
+        transition.duration = 0.3;
+        transition.type = kCATransitionMoveIn;
+        transition.subtype = kCATransitionFromBottom;
+        [self.navigationController.view.layer addAnimation:transition forKey:kCATransition];
+        [self.navigationController pushViewController:vc animated:NO];
+
+        self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
+        self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:42.0f/255.0f green:139.0f/255.0f blue:232.0f/255.0f alpha:1.0];
+        self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+        self.navigationController.navigationBar.Hidden = NO;
     }
 }
 

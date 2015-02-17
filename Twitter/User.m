@@ -21,7 +21,10 @@ NSString * const UserDidLogoutNotification = @"UserDidLogoutNotification";
 @implementation User
 
 static User *_currentUser;
+static NSDictionary *_userPool;
+
 NSString * const kCruuentUserKey = @"kCurrentUserKey";
+NSString * const kUserPoolKey = @"kUserPoolKey";
 
 - (id)initWithDictionary:(NSDictionary *)dictionary {
     self = [super init];
@@ -58,12 +61,40 @@ NSString * const kCruuentUserKey = @"kCurrentUserKey";
     return _currentUser;
 }
 
++ (NSDictionary *)userPool {
+    if (_userPool == nil) {
+        NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:kUserPoolKey];
+        
+        if (data != nil) {
+            NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+            _userPool = [NSMutableDictionary dictionary];
+            
+            for (NSString* key in dictionary) {
+                NSDictionary *userDictionary = [dictionary valueForKey:key];
+                [_userPool setValue:[[User alloc] initWithDictionary:userDictionary] forKey:key];
+            }
+        }
+    }
+    
+    return _userPool;
+}
+
 + (void)setCurrentUser:(User *)currentUser {
     _currentUser = currentUser;
     
     if (_currentUser != nil) {
         NSData *data = [NSJSONSerialization dataWithJSONObject:currentUser.dictionary options:0 error:NULL];
         [[NSUserDefaults standardUserDefaults] setObject:data forKey:kCruuentUserKey];
+        
+        NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+        NSData *userPoolData = [[NSUserDefaults standardUserDefaults] objectForKey:kUserPoolKey];
+        if (userPoolData != nil) {
+            dictionary = [[NSJSONSerialization JSONObjectWithData:userPoolData options:0 error:NULL] mutableCopy];
+        }
+        [dictionary setValue:currentUser.dictionary forKey:currentUser.screenname];
+        userPoolData = [NSJSONSerialization dataWithJSONObject:dictionary options:0 error:NULL];
+        [[NSUserDefaults standardUserDefaults] setObject:userPoolData forKey:kUserPoolKey];
+        _userPool = dictionary;
     } else {
         [[NSUserDefaults standardUserDefaults] setObject:nil forKey:kCruuentUserKey];
     }
