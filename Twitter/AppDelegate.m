@@ -12,6 +12,7 @@
 #import "User.h"
 #import "LoginViewController.h"
 #import "TweetsViewController.h"
+#import "MainViewController.h"
 
 @interface AppDelegate ()
 
@@ -27,14 +28,12 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout) name:UserDidLogoutNotification object:nil];
     
     if (user != nil) {
-        self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[TweetsViewController alloc] init]];
+        self.window.rootViewController = [[MainViewController alloc] init];
     } else {
         self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
         [[UINavigationBar appearance] setHidden:YES];
     }
 
-    [[UINavigationBar appearance] setBarStyle:UIBarStyleBlackTranslucent];
-    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:42.0f/255.0f green:139.0f/255.0f blue:232.0f/255.0f alpha:1.0]];
     [self.window makeKeyAndVisible];
     
     return YES;

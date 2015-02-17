@@ -48,16 +48,19 @@
     [self.tableView setSeparatorInset:UIEdgeInsetsZero];
     [self.tableView setLayoutMargins:UIEdgeInsetsZero];
     self.tableView.rowHeight = UITableViewAutomaticDimension;
+
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:42.0f/255.0f green:139.0f/255.0f blue:232.0f/255.0f alpha:1.0];
     
-    // Logout
-    UIImage *image = [UIImage imageNamed:@"reply"];
+    // Menu
+    UIImage *image = [UIImage imageNamed:@"menu"];
     CGRect frame = CGRectMake(0, 0, image.size.width, image.size.height);
-    UIButton* logoutBbutton = [[UIButton alloc] initWithFrame:frame];
-    [logoutBbutton setBackgroundImage:image forState:UIControlStateNormal];
-    [logoutBbutton setShowsTouchWhenHighlighted:YES];
-    [logoutBbutton addTarget:self action:@selector(onLogoutButton) forControlEvents:UIControlEventTouchDown];
-    UIBarButtonItem* logoutBarButton = [[UIBarButtonItem alloc] initWithCustomView:logoutBbutton];
-    [self.navigationItem setLeftBarButtonItem:logoutBarButton];
+    UIButton* menuButton = [[UIButton alloc] initWithFrame:frame];
+    [menuButton setBackgroundImage:image forState:UIControlStateNormal];
+    [menuButton setShowsTouchWhenHighlighted:YES];
+    [menuButton addTarget:self action:@selector(onMenuButton) forControlEvents:UIControlEventTouchDown];
+    UIBarButtonItem* menuBarButton = [[UIBarButtonItem alloc] initWithCustomView:menuButton];
+    [self.navigationItem setLeftBarButtonItem:menuBarButton];
 
     // Compose Tweet
     image = [UIImage imageNamed:@"compose"];
@@ -129,6 +132,11 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+-(UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
 #pragma mark - Private methods
 - (void)fetchTweets {
     [[TwitterClient sharedInstance] homeTimelineWithParams:self.params completion:^(NSArray *tweets, NSError *error) {
@@ -153,8 +161,8 @@
     [self presentViewController:nvc animated:YES completion:nil];
  }
 
-- (void)onLogoutButton {
-    [User logout];
+- (void)onMenuButton {
+    [self.delegate onMenuButton];
 }
 
 - (void)refresh:(id)sender {
