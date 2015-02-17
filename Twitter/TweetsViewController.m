@@ -132,8 +132,8 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)tapOnProfileImage:(User *)user {
-    [self.delegate tapOnProfileImage:user];
+- (void)openProfile:(User *)user {
+    [self.delegate openProfile:user];
 }
 
 -(UIStatusBarStyle)preferredStatusBarStyle

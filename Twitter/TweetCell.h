@@ -13,6 +13,7 @@
 
 @protocol TweetCellDelegate <NSObject>
 
+- (void)openProfile:(User *)user;
 - (void)reply:(TweetCell *)cell;
 - (void)retweet:(TweetCell *)cell;
 - (void)favorite:(TweetCell *)cell;

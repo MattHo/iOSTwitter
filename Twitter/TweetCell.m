@@ -45,6 +45,8 @@
     self.tweetTextLabel.preferredMaxLayoutWidth = self.tweetTextLabel.frame.size.width;
     self.profileImageView.layer.cornerRadius = 3;
     self.profileImageView.clipsToBounds = YES;
+    
+    [self.profileImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTap:)]];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -103,5 +105,9 @@
     self.nameLabel.preferredMaxLayoutWidth = self.nameLabel.frame.size.width;
     [super layoutSubviews];
 }
+
+- (void)onTap:(UITapGestureRecognizer *)tapGestureRecognizer {
+    [self.delegate openProfile:self.tweet.user];
+};
 
 @end

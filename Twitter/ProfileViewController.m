@@ -30,18 +30,10 @@
 
 @implementation ProfileViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        [self fetchTweets];
-    }
-    return self;
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [self.tableView reloadData];
     [self.backgroundImageView setImageWithURL:[NSURL URLWithString:self.user.backgroundImageUrl]];
+    [self fetchTweets];
 }
 
 - (void)viewDidLoad {
@@ -183,6 +175,7 @@
 - (void)fetchTweets {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params setValue:self.user.id forKey:@"user_id"];
+    [self.userTweets removeAllObjects];
     
     [[TwitterClient sharedInstance] userTimelineWithParams:params completion:^(NSArray *tweets, NSError *error) {
         [self.userTweets addObjectsFromArray:tweets];

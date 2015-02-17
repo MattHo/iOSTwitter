@@ -12,7 +12,7 @@
 @protocol TweetsViewControllerDelegate <NSObject>
 
 - (void)onMenuButton;
-- (void)tapOnProfileImage:(User *)user;
+- (void)openProfile:(User *)user;
 
 @end
 

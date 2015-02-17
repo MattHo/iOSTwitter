@@ -112,10 +112,15 @@
 }
 */
 
-- (void)tapOnProfileImage:(User *)user {
+- (void)openProfile:(User *)user {
     ProfileViewController *profileViewController = [[ProfileViewController alloc] init];
     profileViewController.user = user;
+    [self.contentViewController.view removeFromSuperview];
     self.contentViewController = [[UINavigationController alloc] initWithRootViewController:profileViewController];
+
+    self.currentView = @"profile";
+    self.contentViewController.view.frame = self.contentView.frame;
+    [self.contentView addSubview:self.contentViewController.view];
 }
 
 - (void)onMenuButton {
